@@ -3,10 +3,11 @@ from tkinter import messagebox
 from tkinter import ttk
 import psycopg2
 
-def execute_query(query, params=()):
 
+def execute_query(query, params=()):
     try:
-        with psycopg2.connect(dbname="school", user="django_pavel", password="password", host="localhost", port="5432") as conn:
+        with psycopg2.connect(dbname="school", user="django_pavel", password="password", host="localhost",
+                              port="5432") as conn:
             with conn.cursor() as cursor:
                 cursor.execute(query, params)
                 if query.strip().lower().startswith("select"):
@@ -16,6 +17,7 @@ def execute_query(query, params=()):
         messagebox.showerror("Database Error", str(error))
     return None
 
+
 def update_treeview():
     """Refresh the treeview with updated data from the database."""
     for item in tree.get_children():
@@ -24,6 +26,7 @@ def update_treeview():
     if records:
         for record in records:
             tree.insert('', END, values=record)
+
 
 def initialize_database():
     """Create the students table if it doesn't exist."""
@@ -40,6 +43,7 @@ def initialize_database():
     messagebox.showinfo("Information", "Table initialized successfully.")
     update_treeview()
 
+
 def add_student():
     """Insert a new student record into the database."""
     query = "INSERT INTO students(name, address, age, phone_number) VALUES (%s, %s, %s, %s)"
@@ -47,6 +51,7 @@ def add_student():
     execute_query(query, params)
     messagebox.showinfo("Information", "Student added successfully.")
     update_treeview()
+
 
 def modify_student():
     """Update an existing student record in the database."""
@@ -58,6 +63,7 @@ def modify_student():
     messagebox.showinfo("Information", "Student record updated successfully.")
     update_treeview()
 
+
 def remove_student():
     """Delete a student record from the database."""
     selected_item = tree.selection()[0]
@@ -67,6 +73,7 @@ def remove_student():
     execute_query(query, params)
     messagebox.showinfo("Information", "Student record deleted successfully.")
     update_treeview()
+
 
 # Main application window
 app = Tk()

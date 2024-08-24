@@ -1,0 +1,24 @@
+from gtts import gTTS
+import os
+from tkinter import *
+
+root = Tk()
+canvas = Canvas(root, width=400,height=400)
+canvas.pack()
+
+def textToSpeach():
+    text = entry.get()
+    language = "fr"
+    output = gTTS(text= text, lang= language, slow= False)
+    output.save("output.mp3")
+    os.system("afplay output.mp3")
+
+
+entry = Entry(root)
+canvas.create_window(200,180,window = entry)
+button = Button(text='START', command= lambda: textToSpeach())
+canvas.create_window(200,230,window = button)
+
+
+
+root.mainloop()

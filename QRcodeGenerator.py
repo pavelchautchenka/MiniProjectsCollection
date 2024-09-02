@@ -4,7 +4,7 @@ from PIL import ImageTk, Image
 
 root = Tk()
 
-
+################################################################
 def generate():
     link_name = name_entry.get()
     link = link_entry.get()
